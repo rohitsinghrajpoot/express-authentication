@@ -15,5 +15,13 @@ router.post("",authenticate,async (req,res)=>{
         return res.status(500).send({message:err.message})
     }
 })
+router.patch("/:id",authenticate,async (req,res)=>{
+  try{
+    const post = await Post.findByIdAndUpdate(req.params.id,req.body,{new:true})
+    return res.status(200).send(post)
+  }catch(err){
+      return res.status(400).send({message:err.message})
+  }
+})
 
 module.exports = router
